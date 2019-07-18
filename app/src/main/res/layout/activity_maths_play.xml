@@ -1,9 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MathsPlayActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cau"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvCau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text=""
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text=":"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvCauHoi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Câu hỏi"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="48dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dap_an"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/a"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvDapAnA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dap_an"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/b"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvDapAnB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dap_an"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/c"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvDapAnC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dap_an"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/d"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvDapAnD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dap_an"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:onClick="loadNextQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/NextQuestion"/>
+</LinearLayout>

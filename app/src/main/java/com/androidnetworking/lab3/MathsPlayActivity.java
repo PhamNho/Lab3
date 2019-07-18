@@ -1,9 +1,11 @@
 package com.androidnetworking.lab3;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,14 +21,26 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MathsPlayActivity extends AppCompatActivity {
+    private TextView tvCau;
+    private TextView tvCauHoi;
+    private TextView tvDapAnA;
+    private TextView tvDapAnB;
+    private TextView tvDapAnC;
+    private TextView tvDapAnD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maths_play);
 
-        HttpGetTask httpGetTask = new HttpGetTask();
+        tvCau = findViewById(R.id.tvCau);
+        tvCauHoi = findViewById(R.id.tvCauHoi);
+        tvDapAnA = findViewById(R.id.tvDapAnA);
+        tvDapAnB = findViewById(R.id.tvDapAnB);
+        tvDapAnC = findViewById(R.id.tvDapAnC);
+        tvDapAnD = findViewById(R.id.tvDapAnD);
 
+        HttpGetTask httpGetTask = new HttpGetTask();
         httpGetTask.execute("http://dotplays.com/android/lab3.json");
     }
 
@@ -57,32 +71,48 @@ public class MathsPlayActivity extends AppCompatActivity {
             return null;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try {
-                JSONArray root = new JSONArray(s);
 
-                Log.e("Root size", String.valueOf(root.length()));
-                for (int i = 0; i < root.length(); i++) {
+                JSONObject root = new JSONObject(s);
 
-                    JSONObject post = root.getJSONObject(i);
-                    int id = post.getInt("id");
+                JSONObject quiz = root.getJSONObject("quiz");
 
-                    Log.e("id", String.valueOf(id));
+                Log.e("quiz", String.valueOf(quiz));
 
-                    String date = post.getString("date");
-                    Log.e("date", String.valueOf(date));
+                JSONObject maths = quiz.getJSONObject("maths");
 
-                    JSONObject title = post.getJSONObject("title");
+                Log.e("maths", String.valueOf(maths.length()));
+                for (int i = 0; i < maths.length(); i++) {
+                    JSONObject q = maths.getJSONObject("q" + (i + 1));
 
-                    String rendered = title.getString("rendered");
+                    tvCau.setText(i + 1 + "");
 
-                    Log.e("title", rendered);
+                    String cauHoi = q.getString("question");
 
+                    tvCauHoi.setText(cauHoi);
 
+                    JSONArray options = q.getJSONArray("options");
+
+                    String A = options.getString(0);
+
+                    tvDapAnA.setText(A);
+
+                    String B = options.getString(1);
+
+                    tvDapAnB.setText(B);
+
+                    String C = options.getString(2);
+
+                    tvDapAnC.setText(C);
+
+                    String D = options.getString(3);
+
+                    tvDapAnD.setText(D);
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
