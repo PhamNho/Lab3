@@ -90,7 +90,6 @@ public class MathsPlayActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
 
-
                 JSONObject root = new JSONObject(s);
 
                 Log.e("root======", String.valueOf(root));
@@ -183,7 +182,7 @@ public class MathsPlayActivity extends AppCompatActivity {
                         i++;
                         if ((i + 1) == post.length()) {
                             Intent intent = new Intent(MathsPlayActivity.this, ResultActivity.class);
-                            intent.putExtra("diem", diem);
+                            intent.putExtra("diem", String.valueOf(diem));
                             startActivity(intent);
                         } else {
                             try {

@@ -121,7 +121,7 @@ public class SportPlayActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (A.equals(dapAn)) {
                             diem = diem + 1;
-                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
@@ -136,7 +136,7 @@ public class SportPlayActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (B.equals(dapAn)) {
                             diem = diem + 1;
-                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
@@ -152,7 +152,7 @@ public class SportPlayActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (C.equals(dapAn)) {
                             diem = diem + 1;
-                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
@@ -167,7 +167,7 @@ public class SportPlayActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (D.equals(dapAn)) {
                             diem = diem + 1;
-                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
@@ -181,7 +181,8 @@ public class SportPlayActivity extends AppCompatActivity {
                         i++;
                         if ((i + 1) == post.length()) {
                             Intent intent = new Intent(SportPlayActivity.this, ResultActivity.class);
-                            intent.putExtra("diem", diem);
+                            intent.putExtra("diem", String.valueOf(diem));
+                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                             startActivity(intent);
                         } else {
                             try {
@@ -204,8 +205,8 @@ public class SportPlayActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         if (A.equals(dapAn)) {
-                                            diem++;
-                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                            diem = diem + 1;
+                                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem) , Toast.LENGTH_SHORT).show();
                                         } else {
 
                                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
@@ -221,7 +222,7 @@ public class SportPlayActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         if (B.equals(dapAn)) {
                                             diem = diem + 1;
-                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                                         } else {
 
                                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
@@ -237,7 +238,7 @@ public class SportPlayActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         if (C.equals(dapAn)) {
                                             diem = diem + 1;
-                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                                         } else {
 
                                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
@@ -252,7 +253,7 @@ public class SportPlayActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         if (D.equals(dapAn)) {
                                             diem = diem + 1;
-                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SportPlayActivity.this, String.valueOf(diem), Toast.LENGTH_SHORT).show();
                                         } else {
 
                                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
