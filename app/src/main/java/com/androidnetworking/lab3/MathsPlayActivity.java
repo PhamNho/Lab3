@@ -50,7 +50,7 @@ public class MathsPlayActivity extends AppCompatActivity {
     }
 
     public void NextQuestion(View view) {
-        Intent intent= new Intent(this, MathsPlayActivity.class);
+        Intent intent = new Intent(this, MathsPlayActivity.class);
         startActivity(intent);
     }
 
@@ -89,21 +89,29 @@ public class MathsPlayActivity extends AppCompatActivity {
 
                 JSONObject root = new JSONObject(s);
 
+                Log.e("root======", String.valueOf(root));
+
                 JSONObject quiz = root.getJSONObject("quiz");
 
-                JSONObject maths = quiz.getJSONObject("maths");
+                Log.e("quiz======", String.valueOf(quiz));
 
-                JSONObject q = maths.getJSONObject("q" + (i));
+                JSONArray maths = quiz.getJSONArray("maths");
 
-                tvCau.setText(i + "");
+                Log.e("maths======", String.valueOf(maths));
 
-                String cauHoi = q.getString("question");
+                int i = 0;
 
-                final String dapAn = q.getString("answer");
+                JSONObject post = maths.getJSONObject(i);
+
+                tvCau.setText(i + 1 + "");
+
+                String cauHoi = post.getString("question");
+
+                final String dapAn = post.getString("answer");
 
                 tvCauHoi.setText(cauHoi);
 
-                JSONArray options = q.getJSONArray("options");
+                JSONArray options = post.getJSONArray("options");
 
                 final String A = options.getString(0);
 
@@ -111,11 +119,11 @@ public class MathsPlayActivity extends AppCompatActivity {
                 tvDapAnA.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (A.equals(dapAn)){
-                            i++;
+                        if (A.equals(dapAn)) {
+
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
-                        }else {
-                            i++;
+                        } else {
+
                             Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -127,11 +135,11 @@ public class MathsPlayActivity extends AppCompatActivity {
                 tvDapAnB.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (B.equals(dapAn)){
-                            i++;
+                        if (B.equals(dapAn)) {
+
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
-                        }else {
-                            i++;
+                        } else {
+
                             Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -143,11 +151,11 @@ public class MathsPlayActivity extends AppCompatActivity {
                 tvDapAnC.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (C.equals(dapAn)){
-                            i++;
+                        if (C.equals(dapAn)) {
+
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
-                        }else {
-                            i++;
+                        } else {
+
                             Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -158,11 +166,11 @@ public class MathsPlayActivity extends AppCompatActivity {
                 tvDapAnD.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (D.equals(dapAn)){
-                            i++;
+                        if (D.equals(dapAn)) {
+
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
-                        }else {
-                            i++;
+                        } else {
+
                             Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
                     }

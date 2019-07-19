@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,40 +81,92 @@ public class SportPlayActivity extends AppCompatActivity {
 
                 JSONObject root = new JSONObject(s);
 
+                Log.e("root======", String.valueOf(root));
+
                 JSONObject quiz = root.getJSONObject("quiz");
 
-                Log.e("quiz", String.valueOf(quiz));
+                Log.e("quiz======", String.valueOf(quiz));
 
-                JSONObject sport = quiz.getJSONObject("sport");
+                JSONArray sport = quiz.getJSONArray("sport");
 
-                Log.e("sport", String.valueOf(sport.length()));
-                for (int i = 0; i < sport.length(); i++) {
-                    JSONObject q = sport.getJSONObject("q" + (i + 1));
+                Log.e("sport======", String.valueOf(sport));
 
-                    tvCau.setText(i+1+"");
+                int i = 0;
 
-                    String cauHoi = q.getString("question");
+                JSONObject post = sport.getJSONObject(i);
 
-                    tvCauHoi.setText(cauHoi);
+                tvCau.setText(i + 1 + "");
 
-                    JSONArray options = q.getJSONArray("options");
+                String cauHoi = post.getString("question");
 
-                    String A = options.getString(0);
+                final String dapAn = post.getString("answer");
 
-                    tvDapAnA.setText(A);
+                tvCauHoi.setText(cauHoi);
 
-                    String B = options.getString(1);
+                JSONArray options = post.getJSONArray("options");
 
-                    tvDapAnB.setText(B);
+                final String A = options.getString(0);
 
-                    String C = options.getString(2);
+                tvDapAnA.setText(A);
+                tvDapAnA.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (A.equals(dapAn)) {
 
-                    tvDapAnC.setText(C);
+                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        } else {
 
-                    String D = options.getString(3);
+                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
-                    tvDapAnD.setText(D);
-                }
+                final String B = options.getString(1);
+
+                tvDapAnB.setText(B);
+                tvDapAnB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (B.equals(dapAn)) {
+
+                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                final String C = options.getString(2);
+
+                tvDapAnC.setText(C);
+                tvDapAnC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (C.equals(dapAn)) {
+
+                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                final String D = options.getString(3);
+
+                tvDapAnD.setText(D);
+                tvDapAnD.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (D.equals(dapAn)) {
+
+                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
