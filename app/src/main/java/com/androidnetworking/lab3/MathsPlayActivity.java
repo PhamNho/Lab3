@@ -31,7 +31,9 @@ public class MathsPlayActivity extends AppCompatActivity {
     private TextView tvDapAnB;
     private TextView tvDapAnC;
     private TextView tvDapAnD;
-    int i = 1;
+    private Button btnNextQuestion;
+    int i = 0;
+    int diem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MathsPlayActivity extends AppCompatActivity {
         tvDapAnB = findViewById(R.id.tvDapAnB);
         tvDapAnC = findViewById(R.id.tvDapAnC);
         tvDapAnD = findViewById(R.id.tvDapAnD);
+        btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
         HttpGetTask httpGetTask = new HttpGetTask();
         httpGetTask.execute("http://dotplays.com/android/lab3.json");
@@ -87,6 +90,7 @@ public class MathsPlayActivity extends AppCompatActivity {
             super.onPostExecute(s);
             try {
 
+
                 JSONObject root = new JSONObject(s);
 
                 Log.e("root======", String.valueOf(root));
@@ -95,13 +99,11 @@ public class MathsPlayActivity extends AppCompatActivity {
 
                 Log.e("quiz======", String.valueOf(quiz));
 
-                JSONArray maths = quiz.getJSONArray("maths");
+                final JSONArray maths = quiz.getJSONArray("maths");
 
                 Log.e("maths======", String.valueOf(maths));
 
-                int i = 0;
-
-                JSONObject post = maths.getJSONObject(i);
+                final JSONObject post = maths.getJSONObject(i);
 
                 tvCau.setText(i + 1 + "");
 
@@ -120,10 +122,9 @@ public class MathsPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (A.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
-
                             Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -136,7 +137,7 @@ public class MathsPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (B.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -152,7 +153,7 @@ public class MathsPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (C.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -167,11 +168,103 @@ public class MathsPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (D.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                btnNextQuestion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        i++;
+                        if ((i + 1) == post.length()) {
+                            Intent intent = new Intent(MathsPlayActivity.this, ResultActivity.class);
+                            intent.putExtra("diem", diem);
+                            startActivity(intent);
+                        } else {
+                            try {
+                                    JSONObject post = maths.getJSONObject(i);
+
+                                tvCau.setText(i + 1 + "");
+
+                                String cauHoi = post.getString("question");
+
+                                final String dapAn = post.getString("answer");
+
+                                tvCauHoi.setText(cauHoi);
+
+                                JSONArray options = post.getJSONArray("options");
+
+                                final String A = options.getString(0);
+
+                                tvDapAnA.setText(A);
+                                tvDapAnA.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (A.equals(dapAn)) {
+                                            diem++;
+                                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                                final String B = options.getString(1);
+
+                                tvDapAnB.setText(B);
+                                tvDapAnB.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (B.equals(dapAn)) {
+                                            diem = diem + 1;
+                                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                                final String C = options.getString(2);
+
+                                tvDapAnC.setText(C);
+                                tvDapAnC.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (C.equals(dapAn)) {
+                                            diem = diem + 1;
+                                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                                final String D = options.getString(3);
+
+                                tvDapAnD.setText(D);
+                                tvDapAnD.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (D.equals(dapAn)) {
+                                            diem = diem + 1;
+                                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }
                 });

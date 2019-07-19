@@ -1,10 +1,13 @@
 package com.androidnetworking.lab3;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,9 @@ public class SportPlayActivity extends AppCompatActivity {
     private TextView tvDapAnB;
     private TextView tvDapAnC;
     private TextView tvDapAnD;
+    private Button btnNextQuestion;
+    int i = 0;
+    int diem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +44,15 @@ public class SportPlayActivity extends AppCompatActivity {
         tvDapAnB = findViewById(R.id.tvDapAnB);
         tvDapAnC = findViewById(R.id.tvDapAnC);
         tvDapAnD = findViewById(R.id.tvDapAnD);
+        btnNextQuestion = findViewById(R.id.btnNextQuestion);
 
         HttpGetTask httpGetTask = new HttpGetTask();
         httpGetTask.execute("http://dotplays.com/android/lab3.json");
     }
 
-    public void loadNextQuestion(View view) {
-
+    public void NextQuestion(View view) {
+        Intent intent = new Intent(this, MathsPlayActivity.class);
+        startActivity(intent);
     }
 
     public class HttpGetTask extends AsyncTask<String, Long, String> {
@@ -74,10 +82,12 @@ public class SportPlayActivity extends AppCompatActivity {
             return null;
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try {
+
 
                 JSONObject root = new JSONObject(s);
 
@@ -87,13 +97,11 @@ public class SportPlayActivity extends AppCompatActivity {
 
                 Log.e("quiz======", String.valueOf(quiz));
 
-                JSONArray sport = quiz.getJSONArray("sport");
+                final JSONArray sport = quiz.getJSONArray("sport");
 
                 Log.e("sport======", String.valueOf(sport));
 
-                int i = 0;
-
-                JSONObject post = sport.getJSONObject(i);
+                final JSONObject post = sport.getJSONObject(i);
 
                 tvCau.setText(i + 1 + "");
 
@@ -112,10 +120,9 @@ public class SportPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (A.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
-
                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -128,7 +135,7 @@ public class SportPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (B.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -144,7 +151,7 @@ public class SportPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (C.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
 
@@ -159,11 +166,103 @@ public class SportPlayActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (D.equals(dapAn)) {
-
+                            diem = diem + 1;
                             Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
                         } else {
 
                             Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                btnNextQuestion.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        i++;
+                        if ((i + 1) == post.length()) {
+                            Intent intent = new Intent(SportPlayActivity.this, ResultActivity.class);
+                            intent.putExtra("diem", diem);
+                            startActivity(intent);
+                        } else {
+                            try {
+                                JSONObject post = sport.getJSONObject(i);
+
+                                tvCau.setText(i + 1 + "");
+
+                                String cauHoi = post.getString("question");
+
+                                final String dapAn = post.getString("answer");
+
+                                tvCauHoi.setText(cauHoi);
+
+                                JSONArray options = post.getJSONArray("options");
+
+                                final String A = options.getString(0);
+
+                                tvDapAnA.setText(A);
+                                tvDapAnA.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (A.equals(dapAn)) {
+                                            diem++;
+                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                                final String B = options.getString(1);
+
+                                tvDapAnB.setText(B);
+                                tvDapAnB.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (B.equals(dapAn)) {
+                                            diem = diem + 1;
+                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                                final String C = options.getString(2);
+
+                                tvDapAnC.setText(C);
+                                tvDapAnC.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (C.equals(dapAn)) {
+                                            diem = diem + 1;
+                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                                final String D = options.getString(3);
+
+                                tvDapAnD.setText(D);
+                                tvDapAnD.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (D.equals(dapAn)) {
+                                            diem = diem + 1;
+                                            Toast.makeText(SportPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(SportPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }
                 });
