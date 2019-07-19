@@ -1,11 +1,15 @@
 package com.androidnetworking.lab3;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +31,7 @@ public class MathsPlayActivity extends AppCompatActivity {
     private TextView tvDapAnB;
     private TextView tvDapAnC;
     private TextView tvDapAnD;
+    int i = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,11 @@ public class MathsPlayActivity extends AppCompatActivity {
 
         HttpGetTask httpGetTask = new HttpGetTask();
         httpGetTask.execute("http://dotplays.com/android/lab3.json");
+    }
+
+    public void NextQuestion(View view) {
+        Intent intent= new Intent(this, MathsPlayActivity.class);
+        startActivity(intent);
     }
 
     public class HttpGetTask extends AsyncTask<String, Long, String> {
@@ -81,38 +91,83 @@ public class MathsPlayActivity extends AppCompatActivity {
 
                 JSONObject quiz = root.getJSONObject("quiz");
 
-                Log.e("quiz", String.valueOf(quiz));
-
                 JSONObject maths = quiz.getJSONObject("maths");
 
-                Log.e("maths", String.valueOf(maths.length()));
-                for (int i = 0; i < maths.length(); i++) {
-                    JSONObject q = maths.getJSONObject("q" + (i + 1));
+                JSONObject q = maths.getJSONObject("q" + (i));
 
-                    tvCau.setText(i + 1 + "");
+                tvCau.setText(i + "");
 
-                    String cauHoi = q.getString("question");
+                String cauHoi = q.getString("question");
 
-                    tvCauHoi.setText(cauHoi);
+                final String dapAn = q.getString("answer");
 
-                    JSONArray options = q.getJSONArray("options");
+                tvCauHoi.setText(cauHoi);
 
-                    String A = options.getString(0);
+                JSONArray options = q.getJSONArray("options");
 
-                    tvDapAnA.setText(A);
+                final String A = options.getString(0);
 
-                    String B = options.getString(1);
+                tvDapAnA.setText(A);
+                tvDapAnA.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (A.equals(dapAn)){
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        }else {
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
-                    tvDapAnB.setText(B);
+                final String B = options.getString(1);
 
-                    String C = options.getString(2);
+                tvDapAnB.setText(B);
+                tvDapAnB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (B.equals(dapAn)){
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        }else {
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
-                    tvDapAnC.setText(C);
+                final String C = options.getString(2);
 
-                    String D = options.getString(3);
+                tvDapAnC.setText(C);
+                tvDapAnC.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (C.equals(dapAn)){
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        }else {
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                final String D = options.getString(3);
 
-                    tvDapAnD.setText(D);
-                }
+                tvDapAnD.setText(D);
+                tvDapAnD.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (D.equals(dapAn)){
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Đúng", Toast.LENGTH_SHORT).show();
+                        }else {
+                            i++;
+                            Toast.makeText(MathsPlayActivity.this, "Sai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
